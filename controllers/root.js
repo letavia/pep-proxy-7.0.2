@@ -60,6 +60,7 @@ const Root = (function() {
                 req.headers['X-Display-Name'] = userInfo.displayName;
                 req.headers['X-Roles'] = JSON.stringify(userInfo.roles);
                 req.headers['X-Organizations'] = JSON.stringify(userInfo.organizations);
+                req.headers['X-Decision'] = userInfo.authorization_decision;
 
                 if (config.authorization.enabled) {
 
