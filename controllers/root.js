@@ -24,7 +24,7 @@ const Root = (function() {
             log.error('Auth-token not found in request header');
             const authHeader = 'IDM uri = ' + config.idm_host;
             res.set('WWW-Authenticate', authHeader);
-    		res.status(401).send('Auth-token not found in request header');
+    		res.status(401).send('Auth-token not found in request header cuy');
     	} else {
 
             if (config.magic_key && config.magic_key === authToken) {
@@ -55,7 +55,6 @@ const Root = (function() {
             }
 
     		IDM.checkToken(authToken, action, resource, authzforce, function (userInfo) {
-
                 // Set headers with user information
                 req.headers['X-Nick-Name'] = userInfo.id;
                 req.headers['X-Display-Name'] = userInfo.displayName;
@@ -85,7 +84,8 @@ const Root = (function() {
 
                         }, tokensCache);
                     } else  if (userInfo.authorization_decision === "Permit") {
-                        redirRequest(req, res, userInfo);
+                        log.info(userInfo.authorization_decision);
+                        //redirRequest(req, res, userInfo);
                     } else {
                         res.status(401).send('User access-token not authorized');
                     }
