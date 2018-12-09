@@ -91,7 +91,8 @@ const Root = (function() {
                         res.status(401).send('User access-token not authorized');
                     }
                 } else {
-                    redirRequest(req, res, userInfo);
+                    //redirRequest(req, res, userInfo);
+                    res.status(401).send('User access-token not authorized');
                 }
 
     		}, function (status, e) {
