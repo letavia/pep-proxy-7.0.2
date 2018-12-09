@@ -92,6 +92,7 @@ const Root = (function() {
                     }
                 } else {
                     //redirRequest(req, res, userInfo);
+                    res.status(007).send('if enabled');
                 }
 
     		}, function (status, e) {
