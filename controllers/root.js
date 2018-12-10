@@ -89,11 +89,11 @@ const Root = (function() {
                         redirRequest(req, res, userInfo);
                     } else {
                         res.status(401).send('User access-token not authorized');
-                   
+                    }
                 } else {
                     //redirRequest(req, res, userInfo);
                     res.status(401).send('if enabled');
-                
+                }
 
     		}, function (status, e) {
 
