@@ -62,37 +62,16 @@ const Root = (function() {
                 req.headers['X-Organizations'] = JSON.stringify(userInfo.organizations);
                 req.headers['X-Decision'] = userInfo.authorization_decision;
 
-                if (config.authorization.enabled) {
-
-                    if (config.authorization.pdp === 'authzforce') {
-                       
+                if (!config.authorization.enabled) {
+                    res.status(401).send('auth not enabled');
+                } else if (config.authorization.pdp === 'authzforce') {      
                         // Check decision through authzforce
-                        AZF.checkPermissions(authToken, userInfo, req, function () {
-
-                            redirRequest(req, res, userInfo);
-
-                        }, function (status, e) {
-                            if (status === 401) {
-                                log.error('User access-token not authorized: ', e);
-                                res.status(401).send('User token not authorized');
-                            } else if (status === 404) {
-                                log.error('Domain not found: ', e);
-                                res.status(404).send(e);
-                            } else {
-                                log.error('Error in AZF communication ', e);
-                                res.status(503).send('Error in AZF communication');
-                            }
-
-                        }, tokensCache);
-                    } else  if (userInfo.authorization_decision === "Permit") {
-                        redirRequest(req, res, userInfo);
-                    } else {
-                        res.status(401).send('User access-token not authorized');
-                    }
+                        log.info('auth with azf');    
+                } else if (userInfo.authorization_decision === "Permit") {
+                        res.status(401).send('Permit');
                 } else {
-                    redirRequest(req, res, userInfo);
+                        res.status(401).send('User access-token not authorized');
                 }
-
     		}, function (status, e) {
 
     			if (status === 404 || status === 401) {
