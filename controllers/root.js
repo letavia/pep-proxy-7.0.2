@@ -86,13 +86,13 @@ const Root = (function() {
                         }, tokensCache);
                     } else  if (userInfo.authorization_decision === "Permit") {
                         //log.info(userInfo.authorization_decision);
-                        redirRequest(req, res, userInfo); return;
+                        return redirRequest(req, res, userInfo);
                     } else {
-                        res.status(401).send('User access-token not authorized'); return;
+                        return res.status(401).send('User access-token not authorized');
                     }
                 } else {
                     //redirRequest(req, res, userInfo);
-                    res.status(401).send('if enabled'); return;
+                    return res.status(401).send('if enabled'); 
                 }
 
     		}, function (status, e) {
